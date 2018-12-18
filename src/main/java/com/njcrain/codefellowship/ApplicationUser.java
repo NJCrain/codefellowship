@@ -21,6 +21,10 @@ public class ApplicationUser {
         return this.username;
     }
 
+    public String getPassword() {
+        return this.password;
+    }
+
     public String getFirstName() {
         return this.firstName;
     }
