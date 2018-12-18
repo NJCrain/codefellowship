@@ -1,5 +1,6 @@
 package com.njcrain.codefellowship.controllers;
 
+import com.njcrain.codefellowship.ApplicationUser;
 import com.njcrain.codefellowship.ApplicationUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,9 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public String show(Model m, @PathVariable long id) {
-        m.addAttribute("user", applicationUserRepo.findById(id).get());
+        ApplicationUser user = applicationUserRepo.findById(id).get();
+        m.addAttribute("title", user.getUsername());
+        m.addAttribute("user", user);
         return "user";
     }
 }
