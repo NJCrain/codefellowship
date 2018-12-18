@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${user.username}"></title>
+</head>
+
+<body>
+    <header>
+        <h1 th:text="${user.username} + '\'s Profile'"></h1>
+    </header>
+
+    <main>
+        <div>
+            <img src="/default-user.png">
+            <h2 th:text="'First Name: ' + ${user.firstName}"></h2>
+            <h2 th:text="'Last Name: ' + ${user.lastName}"></h2>
+            <h3 th:text="'Bio: ' + ${user.bio}"></h3>
+            <h3 th:text="'Date of Birth: ' + ${user.dateOfBirth}"></h3>
+        </div>
+    </main>
+</body>
+</html>

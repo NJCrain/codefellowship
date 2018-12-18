@@ -29,7 +29,6 @@ public class SignUpController {
     @PostMapping("/signup")
     public RedirectView create(ApplicationUser user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        applicationUserRepo.save(user);
-        return new RedirectView("/");
+        return new RedirectView("/users/" + applicationUserRepo.save(user).getId());
     }
 }

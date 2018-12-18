@@ -17,6 +17,10 @@ public class ApplicationUser {
     private String dateOfBirth;
     private String bio;
 
+    public long getId() {
+        return this.id;
+    }
+
     public String getUsername() {
         return this.username;
     }
