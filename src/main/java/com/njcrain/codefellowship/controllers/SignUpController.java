@@ -36,6 +36,7 @@ public class SignUpController {
     @PostMapping("/signup")
     public RedirectView create(ApplicationUser user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        applicationUserRepo.save(user);
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return new RedirectView("/myprofile");
