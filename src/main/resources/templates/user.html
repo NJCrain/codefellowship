@@ -16,6 +16,15 @@
             <h3 th:text="'Bio: ' + ${user.bio}"></h3>
             <h3 th:text="'Date of Birth: ' + ${user.dateOfBirth}"></h3>
         </div>
+
+        <section id="posts">
+            <div class="post" th:each="post : ${user.posts}">
+                <p th:text="'Posted at: ' + ${post.createdAt}"></p>
+                <p th:text="${post.body}"></p>
+            </div>
+        </section>
+
+        <form th:replace="~{common :: form}"></form>
     </main>
 </body>
 </html>

@@ -6,10 +6,13 @@
     <body>
         <header>
             <h1>Welcome to CodeFellowShip</h1>
+            <nav th:text="( (p == null)? ${p.username} : Login)"></nav>
         </header>
 
         <main>
             <a href="/signup"><h2>SIGN UP HERE!!!!</h2></a>
+            <a href="/login"><h2>LOGIN</h2></a>
+
             <img id="logo" src="/logo_image.png">
         </main>
     </body>
