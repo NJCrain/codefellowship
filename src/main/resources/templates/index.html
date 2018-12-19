@@ -6,6 +6,7 @@
     <body>
         <header>
             <h1>Welcome to CodeFellowShip</h1>
+            <nav th:text="( (p == null)? ${p.username} : Login)"></nav>
         </header>
 
         <main>
