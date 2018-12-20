@@ -24,7 +24,10 @@
             </div>
         </section>
 
-        <form th:replace="~{common :: form}"></form>
+        <form th:if="${myProfile}" action="/users/posts" method="post">
+            <label>Post: <input name="body"></label>
+            <input type="submit">
+        </form>
     </main>
 </body>
 </html>
