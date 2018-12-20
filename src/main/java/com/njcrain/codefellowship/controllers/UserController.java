@@ -5,7 +5,6 @@ import com.njcrain.codefellowship.ApplicationUserRepository;
 import com.njcrain.codefellowship.Post;
 import com.njcrain.codefellowship.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +24,10 @@ public class UserController {
     private PostRepository postRepo;
 
     @GetMapping("/users/{id}")
-    public String show(Model m, @PathVariable long id) {
+    public String show(Model m, @PathVariable long id, Principal p) {
         ApplicationUser user = applicationUserRepo.findById(id).get();
+        ApplicationUser viewer = ApplicationUser.convertPrincipal(p, applicationUserRepo);
+        m.addAttribute("viewer", viewer);
         m.addAttribute("title", user.getUsername());
         m.addAttribute("user", user);
         m.addAttribute("myProfile", false);
@@ -60,6 +61,6 @@ public class UserController {
         ApplicationUser user = ApplicationUser.convertPrincipal(p, applicationUserRepo);
         user.followedUsers.add(applicationUserRepo.findById(id).get());
         applicationUserRepo.save(user);
-        return new RedirectView("/myprofile");
+        return new RedirectView("/feed");
     }
 }
