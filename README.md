@@ -16,3 +16,10 @@ An app that allows users to sign up through a form, which will hash their passwo
 * Users posts can be viewed on their profile
 * Home page renders differently based on login status
 * Users cannot create posts on other users pages
+
+## 12/20
+* Users can now follow other users
+* Going to the /feed page will display all posts from your list of followed users
+* Follow button does not show up on your own profile
+* Posts on /feed include a link to the profile of the user who made it
+* Added a /users page to display a list of all registered users on the site, with link to their profile

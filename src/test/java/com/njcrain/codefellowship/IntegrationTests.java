@@ -37,4 +37,11 @@ public class IntegrationTests {
         assertEquals("The server should give back a 200 response", 200, response.getStatusCodeValue());
         assertTrue("There should be a form that makes a post to /signup within the page", response.toString().contains("<form action=\"/signup\" method=\"post\">"));
     }
+
+    @Test
+    public void testLogin() {
+        ResponseEntity<String> response = this.restTemplate.getForEntity("http://localhost:" + port + "/login", String.class);
+        assertEquals("The server should give back a 200 response", 200, response.getStatusCodeValue());
+        assertTrue("There should be a form that makes a post to /perform_login within the page", response.toString().contains("<form action=\"/perform_login\" method=\"post\">"));
+    }
 }

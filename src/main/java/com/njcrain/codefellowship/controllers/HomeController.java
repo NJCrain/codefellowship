@@ -11,7 +11,6 @@ import java.security.Principal;
 public class HomeController {
     @GetMapping("/")
     public String show(Model m, Principal p) {
-        System.out.println(p);
         if (p == null) {
             m.addAttribute("loggedIn", false);
         } else {
