@@ -36,8 +36,7 @@ public class UserController {
 
     @GetMapping("/myprofile")
     public String showProfile(Principal p, Model m) {
-        ApplicationUser user = (ApplicationUser) (((UsernamePasswordAuthenticationToken) p).getPrincipal());
-        user = applicationUserRepo.findById(user.getId()).get();
+        ApplicationUser user = ApplicationUser.convertPrincipal(p, applicationUserRepo);
         m.addAttribute("user", applicationUserRepo.findById(user.getId()).get());
         m.addAttribute("myProfile", true);
         System.out.println(user.followedUsers);
@@ -46,7 +45,7 @@ public class UserController {
 
     @PostMapping("/users/posts")
     public RedirectView createPost(Principal p, @RequestParam String body) {
-        ApplicationUser user = (ApplicationUser) (((UsernamePasswordAuthenticationToken) p).getPrincipal());
+        ApplicationUser user = ApplicationUser.convertPrincipal(p, applicationUserRepo);
         Post newPost = new Post();
         newPost.setBody(body);
         newPost.setCreatedAt(new Date());
@@ -58,8 +57,7 @@ public class UserController {
 
     @PostMapping("/users/{id}/follow")
     public RedirectView addFollow(Principal p, @PathVariable long id) {
-        ApplicationUser user = (ApplicationUser) (((UsernamePasswordAuthenticationToken) p).getPrincipal());
-        user = applicationUserRepo.findById(user.getId()).get();
+        ApplicationUser user = ApplicationUser.convertPrincipal(p, applicationUserRepo);
         user.followedUsers.add(applicationUserRepo.findById(id).get());
         applicationUserRepo.save(user);
         return new RedirectView("/myprofile");

@@ -1,9 +1,12 @@
 package com.njcrain.codefellowship;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -85,6 +88,13 @@ public class ApplicationUser implements UserDetails {
 
     public String toString() {
         return this.username;
+    }
+
+    public static ApplicationUser convertPrincipal(Principal p, ApplicationUserRepository repo) {
+        ApplicationUser user = (ApplicationUser) (((UsernamePasswordAuthenticationToken) p).getPrincipal());
+        user = repo.findById(user.getId()).get();
+
+        return user;
     }
 
     public List<Post> getPosts() {
