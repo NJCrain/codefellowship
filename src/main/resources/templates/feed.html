@@ -12,7 +12,8 @@
     <main>
         <section id="posts">
             <div class="post" th:each="post : ${posts}">
-                <p th:text="'Posted by: ' + ${post.postedBy} + ' at ' + ${post.createdAt}"></p>
+                <p>Posted by: <a th:text="${post.postedBy}" th:href="'/users/' + ${post.postedBy.id}"></a></p>
+                <p th:text="'Posted at: ' + ${post.createdAt}"></p>
                 <p th:text="${post.body}"></p>
             </div>
         </section>
