@@ -5,11 +5,12 @@
 
     <body>
         <header>
-            <h1>THIS IS THE SIGN UP PAGE</h1>
+            <nav th:replace="~{common :: nav}"></nav>
+            <h1>SIGN UP</h1>
         </header>
 
         <main>
-            <form action="/signup" method="post">
+            <form th:if="${!loggedIn}" action="/signup" method="post">
                 <label>Username: <input name="username"></label>
                 <label>Password: <input type="password" name="password"></label>
                 <label>First Name: <input name="firstName"></label>
@@ -18,6 +19,8 @@
                 <label>Bio: <input name="bio"></label>
                 <input type="submit">
             </form>
+
+            <h2 th:if="${loggedIn}">You are already signed in. Please <a href="/perform_logout">logout</a> first if you wish to create a new account</h2>
         </main>
     </body>
 </html>
