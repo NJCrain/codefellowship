@@ -63,4 +63,10 @@ public class UserController {
         applicationUserRepo.save(user);
         return new RedirectView("/feed");
     }
+
+    @GetMapping("/users")
+    public String usersIndex(Model m) {
+        m.addAttribute("users", applicationUserRepo.findAll());
+        return "userIndex.html";
+    }
 }
