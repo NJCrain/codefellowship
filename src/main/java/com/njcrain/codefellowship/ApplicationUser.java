@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -21,6 +22,13 @@ public class ApplicationUser implements UserDetails {
     private String bio;
     @OneToMany(mappedBy = "postedBy")
     private List<Post> posts;
+    @ManyToMany
+    @JoinTable(
+            name="followed_users",
+            joinColumns = {@JoinColumn(name="follower_id")},
+            inverseJoinColumns = {@JoinColumn(name = "followee_id")}
+    )
+    public Set<ApplicationUser> followedUsers;
 
     public long getId() {
         return this.id;
