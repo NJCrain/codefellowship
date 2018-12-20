@@ -9,7 +9,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String body;
-    private Date createdAt;
+    private String createdAt;
     @ManyToOne
     private ApplicationUser postedBy;
 
@@ -21,7 +21,7 @@ public class Post {
         return this.body;
     }
 
-    public Date getCreatedAt() {
+    public String getCreatedAt() {
         return this.createdAt;
     }
 
@@ -39,7 +39,7 @@ public class Post {
         this.postedBy = postedBy;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
