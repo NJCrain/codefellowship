@@ -29,6 +29,8 @@ public class UserController {
         ApplicationUser user = applicationUserRepo.findById(id).get();
         m.addAttribute("title", user.getUsername());
         m.addAttribute("user", user);
+        m.addAttribute("myProfile", false);
+
         return "user";
     }
 
@@ -36,15 +38,17 @@ public class UserController {
     public String showProfile(Principal p, Model m) {
         ApplicationUser user = (ApplicationUser) (((UsernamePasswordAuthenticationToken) p).getPrincipal());
         m.addAttribute("user", applicationUserRepo.findById(user.getId()).get());
+        m.addAttribute("myProfile", true);
         return "user";
     }
 
-    @PostMapping("/users/{id}/posts")
-    public RedirectView createPost(@PathVariable long id, @RequestParam String body) {
+    @PostMapping("/users/posts")
+    public RedirectView createPost(Principal p, @RequestParam String body) {
+        ApplicationUser user = (ApplicationUser) (((UsernamePasswordAuthenticationToken) p).getPrincipal());
         Post newPost = new Post();
         newPost.setBody(body);
         newPost.setCreatedAt(new Date());
-        newPost.setPostedBy(applicationUserRepo.findById(id).get());
+        newPost.setPostedBy(applicationUserRepo.findById(user.getId()).get());
         postRepo.save(newPost);
 
         return new RedirectView("/myprofile");
