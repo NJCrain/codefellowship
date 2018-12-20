@@ -83,6 +83,10 @@ public class ApplicationUser implements UserDetails {
         return this.bio;
     }
 
+    public String toString() {
+        return this.username;
+    }
+
     public List<Post> getPosts() {
         return this.posts;
     }

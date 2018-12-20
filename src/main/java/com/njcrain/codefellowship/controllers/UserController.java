@@ -37,8 +37,10 @@ public class UserController {
     @GetMapping("/myprofile")
     public String showProfile(Principal p, Model m) {
         ApplicationUser user = (ApplicationUser) (((UsernamePasswordAuthenticationToken) p).getPrincipal());
+        user = applicationUserRepo.findById(user.getId()).get();
         m.addAttribute("user", applicationUserRepo.findById(user.getId()).get());
         m.addAttribute("myProfile", true);
+        System.out.println(user.followedUsers);
         return "user";
     }
 
@@ -51,6 +53,15 @@ public class UserController {
         newPost.setPostedBy(applicationUserRepo.findById(user.getId()).get());
         postRepo.save(newPost);
 
+        return new RedirectView("/myprofile");
+    }
+
+    @PostMapping("/users/{id}/follow")
+    public RedirectView addFollow(Principal p, @PathVariable long id) {
+        ApplicationUser user = (ApplicationUser) (((UsernamePasswordAuthenticationToken) p).getPrincipal());
+        user = applicationUserRepo.findById(user.getId()).get();
+        user.followedUsers.add(applicationUserRepo.findById(id).get());
+        applicationUserRepo.save(user);
         return new RedirectView("/myprofile");
     }
 }

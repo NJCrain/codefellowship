@@ -11,7 +11,7 @@
     <main>
         <div>
             <img id="profile_pic" src="/default-user.png">
-            <form th:action="'/users/' + ${user.id} + '/like'" method="post">
+            <form th:action="'/users/' + ${user.id} + '/follow'" method="post">
                 <button type="submit">Follow</button>
             </form>
             <h2 th:text="'First Name: ' + ${user.firstName}"></h2>
