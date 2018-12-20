@@ -10,4 +10,14 @@
     <form th:fragment="newPost" th:action="'/users/' + ${user.id} + '/posts'" method="post">
 
     </form>
+
+    <nav th:fragement="nav">
+        <a th:if="${loggedIn}" href="/myprofile"><li th:text="${user.username} + ' | '"> </li></a>
+        <a href="/"><li>Home |</li></a>
+        <a th:if="${loggedIn}" href="/feed">Your Feed | </a>
+        <a th:if="${loggedIn}" href="/users">Browse Users | </a>
+        <a th:if="${loggedIn}" href="/perform_logout">Logout</a>
+        <a th:if="${!loggedIn}" href="/signup"><li>Sign-Up | </li></a>
+        <a th:if="${!loggedIn}" href="/login"><li>Login</li></a>
+    </nav>
 </html>

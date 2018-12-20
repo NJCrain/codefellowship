@@ -5,15 +5,18 @@
 
 <body>
 <header>
+    <nav th:replace="~{common :: nav}"></nav>
     <h1>LOGIN</h1>
 </header>
 
 <main>
-    <form action="/perform_login" method="post">
+    <form th:if="${!loggedIn}" action="/perform_login" method="post">
         <label>Username: <input name="username"></label>
         <label>Password: <input type="password" name="password"></label>
         <input type="submit">
     </form>
+
+    <h2 th:if="${loggedIn}">You are already signed in. Please <a href="/preform_logout">logout</a> to sign as another user</h2>
 </main>
 </body>
 </html>

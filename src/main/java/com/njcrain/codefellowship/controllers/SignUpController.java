@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 @Controller
@@ -24,8 +25,15 @@ public class SignUpController {
 
     //Shows the signup page
     @GetMapping("/signup")
-    public String show(Model m) {
+    public String show(Model m, Principal p) {
         m.addAttribute("title", "Sign Up");
+        if (p == null) {
+            m.addAttribute("loggedIn", false);
+        } else {
+            m.addAttribute("loggedIn", true);
+            m.addAttribute("user", ((UsernamePasswordAuthenticationToken) p).getPrincipal());
+
+        }
         return "signup";
     }
 

@@ -5,6 +5,7 @@ import com.njcrain.codefellowship.ApplicationUserRepository;
 import com.njcrain.codefellowship.Post;
 import com.njcrain.codefellowship.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class UserController {
         m.addAttribute("viewer", viewer);
         m.addAttribute("title", user.getUsername());
         m.addAttribute("user", user);
+        m.addAttribute("loggedIn", true);
         m.addAttribute("myProfile", false);
 
         return "user";
@@ -40,6 +42,7 @@ public class UserController {
         ApplicationUser user = ApplicationUser.convertPrincipal(p, applicationUserRepo);
         m.addAttribute("user", applicationUserRepo.findById(user.getId()).get());
         m.addAttribute("myProfile", true);
+        m.addAttribute("loggedIn", true);
         System.out.println(user.followedUsers);
         return "user";
     }
@@ -65,8 +68,10 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String usersIndex(Model m) {
+    public String usersIndex(Model m, Principal p) {
         m.addAttribute("users", applicationUserRepo.findAll());
+        m.addAttribute("loggedIn", true);
+        m.addAttribute("user", ((UsernamePasswordAuthenticationToken) p).getPrincipal());
         return "userIndex.html";
     }
 }

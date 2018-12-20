@@ -29,6 +29,8 @@ public class FeedController {
             posts.addAll(followee.getPosts());
         }
         m.addAttribute("posts" ,posts);
+        m.addAttribute("loggedIn", true);
+        m.addAttribute("user", user);
         return "feed";
     }
 }
