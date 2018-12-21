@@ -28,7 +28,7 @@
             </div>
         </section>
 
-        <form th:if="${myProfile}" action="/users/posts" method="post">
+        <form th:if="${myProfile}" id="addPost" action="/users/posts" method="post">
             <label>Post: <input name="body"></label>
             <input type="submit">
         </form>

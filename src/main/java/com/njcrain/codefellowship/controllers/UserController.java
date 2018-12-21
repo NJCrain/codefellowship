@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Controller
@@ -51,8 +53,9 @@ public class UserController {
     public RedirectView createPost(Principal p, @RequestParam String body) {
         ApplicationUser user = ApplicationUser.convertPrincipal(p, applicationUserRepo);
         Post newPost = new Post();
+        LocalDateTime now = LocalDateTime.now();
         newPost.setBody(body);
-        newPost.setCreatedAt(new Date());
+        newPost.setCreatedAt(now.format(DateTimeFormatter.ofPattern("MM/dd/yy HH:mm")));
         newPost.setPostedBy(applicationUserRepo.findById(user.getId()).get());
         postRepo.save(newPost);
 
